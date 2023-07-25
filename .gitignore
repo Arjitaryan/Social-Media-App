@@ -1,2 +1,3 @@
-uploads
+/uploads/posts/photos/
+/uploads/users/avatars/
 .env
