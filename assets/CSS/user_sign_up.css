@@ -1,0 +1,84 @@
+#sign-up-body{
+    min-height: 100vh;
+    padding-top: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: lightblue;
+}
+
+button:hover{
+    cursor: pointer;
+}
+
+#sign-up-heading{
+    color: orangered;
+}
+
+.sign-up-container{
+    background-color: white;
+    border-radius: 5px;
+    padding: 20px;
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+}
+
+form input{
+    width: 350px;
+    height: 30px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    border: 1px solid gray;
+}
+
+form input:focus{
+    outline: none;
+    border: 1px solid blue;
+}
+
+.sign-up-btn{
+    height: 30px;
+    background-color: orangered;
+    border: 1px solid gray;
+    margin-bottom: 20px;
+    color: white;
+    border-radius: 10px;
+}
+
+.google-sign-in-container{
+    width: 100%;
+}
+
+.google-sign-in-container a{
+    text-decoration: none;
+}
+
+.google-sign-in-btn{
+    width: 100%;
+    border: 1px solid gray;
+    height: 30px;
+    background-color: blue;
+    color: white;
+    display: flex;
+    align-items: center; 
+    justify-content: space-between;
+    border-radius: 10px;
+}
+
+.google-sign-in-btn img{
+    width: 20px;
+    height: 80%;
+    border-radius: 50%;
+}
+
+#already{
+    margin-top: 10px;
+    text-decoration: none;
+}

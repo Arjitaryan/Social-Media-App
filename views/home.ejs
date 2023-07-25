@@ -1,0 +1,192 @@
+<link rel="stylesheet" type="text/css" href="/CSS/home.css">
+
+<div id="home-page-body">
+
+    
+    <div id="top-sections">
+        <section id="feed-posts">
+                
+            <div class="post-form-container">
+
+                <% if(locals.user){ %>
+    
+                <h1 id="new-post-heading">Add a new post</h1>
+
+                <form action="/posts/create" id="new-post-form" enctype="multipart/form-data" method="POST">
+                    <input type="file" name="postphoto" placeholder="Profile Picture">
+                    <textarea name="content" id="post-input" cols="30" rows="3" placeholder="Type Here..."></textarea>
+                    <button id="post-btn" type="submit">POST</button>
+                </form>
+    
+                <% } %>
+
+                <h1 id="feed-heading">Feed</h1>
+    
+                
+                <div id="posts-list-container">
+    
+                    <ul>
+                        <% for(post of posts){ %>
+                            
+                            <li id="post-<%= post._id %>" class="post-container">
+                                
+                                <div class="post-head"> 
+                                    
+                                    <a href="/users/profile/<%= post.user.id %>"><img src="<%= post.user.avatar %>"><p><%= post.user.name %></p></a>                                    
+
+                                    <% if(locals.user && locals.user.id == post.user.id){ %>
+                                    
+                                    <a class="delete-post-button delete-btn" href="/posts/destroy/<%= post.id %>"><i class="fa-solid fa-xmark"></i></a>
+                                
+                                    <% } %>
+
+                                </div>
+                                
+                                
+    
+    
+                                <% if(post.postphoto){ %>
+                                    <img class="post-photo" src="<%= post.postphoto %>">
+                                <% } %>
+    
+    
+                                <% if(post.content){ %>
+                                    <p class="post-content"><%= post.content %></p>
+                                <% } %>
+    
+                                    <small>
+                                        <a class="toggle-like-button" data-likes="<%= post.likes.length %>" data-type="Post" data-id="<%= post._id %>" href="/likes/toggle/?id=<%=post._id%>&type=Post">
+                                            <i class="fa-regular fa-heart" style="color: red;"></i>
+                                            <%= post.likes.length %> Likes
+                                        </a>
+                                    </small>
+    
+                                
+    
+                                <div class="post-comments">
+                                    <% if(locals.user){ %>
+    
+                                        <form action= "/comments/create" class="new-comment-form" method="POST">
+    
+                                            <input class="input-comment" type= "text" name="content" placeholder="Type Here to add comment.." required>
+                                            <input type="hidden" name="post" value="<%= post._id %>">
+                                            <input type="submit" value="Add Comment">
+                                        </form>
+    
+                                        <div class="post-comments-list">
+                                            <ul id="post-comments-<%= post._id %>">
+                                                <% for (comment of post.comments){ %>
+                    
+                                                    <li id="comment-<%= comment._id %>">
+                                                        <p>
+                    
+                                                            <% if(locals.user && (locals.user.id == comment.user.id || locals.user.id == comment.post.user.id)){ %>
+                                                                <small>
+                                                                    <a class="delete-comment-botton delete-btn" href="/comments/destroy/<%= comment.id %>"><i class="fa-solid fa-xmark"></i></a>
+                                                                </small>
+                                                                <% } %>
+                                                                
+                                                                <small>
+                                                                    <a href="/users/profile/<%= comment.user.id %>" style= "text-decoration: none;"><b><%= comment.user.name %></b></a>
+                                                                </small>
+                                                                <%= comment.content %>
+
+                                                            <br>
+    
+                                                            <small>
+                                                                <a class="toggle-like-button" data-likes="<%= comment.likes.length %>"  data-type="Comment" data-id="<%= comment._id %>" href="/likes/toggle/?id=<%=comment._id%>&type=Comment">
+                                                                    <i class="fa-regular fa-heart" style="color: red;"></i>
+                                                                    <%= comment.likes.length %> Likes
+                                                                </a>
+                                                            </small>
+                                                        </p>
+                                                    </li>
+                    
+                                                <% } %>
+                                            </ul>
+                                        </div>
+                                    <% } %>
+                                </div>
+    
+                            </li>
+                            
+                        <% } %>
+                    </ul>
+    
+                </div>
+            </div>
+
+        </section>
+
+        <section id="right">
+
+            <h1 id="users-list-heading">Users</h1>
+            <div id="users-list">
+            
+            
+                <% for(u of all_users){ %>
+            
+                    <% if(u.id != locals.user.id){ %>
+                        <div class="users-list-element">
+                            <a href="/friend/add/<%= u.id %>"><i class="fa-solid fa-plus"></i></a>
+                            <a href="/users/profile/<%= u.id %>"><img src="<%= u.avatar %>"></a>
+                            <a class="user-name" href="/users/profile/<%= u.id %>"><%= u.name %></a>
+                        </div>
+                    <% } %>
+                        
+                <% } %>
+            </div>
+
+            
+            <h1 id="friends-list-heading">Friends</h1>
+            <div id="friends-list">
+                        
+                        
+                <% for(friend of locals.user.friends){ %>
+                    <div class="users-list-element">
+                        <a href="/friend/remove/<%= friend.id %>"><i class="fa-solid fa-minus"></i></a>
+                        <a href="/users/profile/<%= u.id %>"><img src="<%= friend.avatar %>"></a>
+                        <a class="user-name" href="/users/profile/<%= friend.id %>"><%= friend.name %></a>
+                    </div> 
+                <% } %>
+            </div>
+
+        </section>
+    </div>
+
+    <div id="user-chat-box">
+        <ul id="chat-messages-list">
+			<li class="other-message">
+				<span>Other Message</span>
+			</li>
+
+			<li class="self-message">
+				<span>Self Message</span>
+			</li>
+
+		</ul>
+
+        <div id="chat-message-input-container">
+			<input id="chat-message-input" placeholder="Type message here">
+			<button id="send-message">Send</button>
+		</div>
+    </div>
+
+</div>
+
+<script type="text/javascript" src="/JS/home_posts.js"></script>
+<script type="text/javascript" src="/JS/home_comments.js"></script>
+<script type="text/javascript" src="/JS/toggle_likes.js"></script>
+<script type="text/javascript" src="/JS/check_like.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.0/socket.io.js" integrity="sha512-+sXUwEYakGznuXubXLO/7LWSAPcm+U3NxMJaSu3S5OcvruAAAzaC50Uh4TW9KWj0hA6vfPAjB7E1uuIXgn9vmQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script type="text/javascript" src="/JS/chat_engine.js"></script>
+
+<% if(locals.user){ %>
+    <script>
+        new ChatEngine('user-chat-box', '<%= locals.user.email %>', '<%= locals.user.name %>');
+    </script>
+<% } %>
+
+<% /* %>
+<% */ %>

@@ -1,0 +1,27 @@
+<link rel="stylesheet" type="text/css" href="/CSS/_header.css">
+
+
+<header>
+
+    <div class="nav-bar-menu">
+        <% if(locals.user){ %>
+            
+            <a href="/users/profile/<%= user.id %>">
+                <img class="nav-bar-profile-pic" src="<%= user.avatar %>" alt="Profile photo">
+                <%= user.name %>
+            </a>
+            
+            <a href="/">Home Page</a>
+            
+
+            <a href="/users/sign-out">Sign Out</a>
+
+        <% }else{ %>
+                
+            <a href="/users/sign-in">Sign In</a>
+                
+            <a href="/users/sign-up">Sign Up</a>
+            
+        <% } %>
+    </div>
+</header>

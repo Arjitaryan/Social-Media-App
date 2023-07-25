@@ -1,0 +1,43 @@
+#confirm-email-body{
+    min-height: 100vh;
+    padding-top: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: lightblue;
+}
+
+button:hover{
+    cursor: pointer;
+}
+
+.forgot-password-container{
+    background-color: white;
+    border-radius: 5px;
+    padding: 20px;
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+}
+
+form input{
+    width: 350px;
+    height: 30px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    border: 1px solid gray;
+}
+
+.submit-btn{
+    height: 30px;
+    background-color: orangered;
+    border: 1px solid gray;
+    margin-bottom: 20px;
+    color: white;
+}

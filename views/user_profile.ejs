@@ -1,0 +1,43 @@
+<link rel="stylesheet" type="text/css" href="/CSS/user_profile.css">
+
+<div id="user-profile-body">
+    <h1>Profile</h1>
+
+    <img class="profile-pic" src="<%= profile_user.avatar %>" alt= "<%= profile_user.name %>">
+
+    <p class="name"><%= profile_user.name %></p>
+    <p class="email">Email: <%= profile_user.email %></p>
+    <p class="friends">Friends: <%= profile_user.friends.length %></p>
+
+    <% if(user.id != profile_user.id && user.friends.includes(profile_user.id)){ %>
+        <a href="/friend/remove/<%= profile_user.id %>"><button>Remove Friend</button></a>
+    <% } %>
+
+    <% if(user.id != profile_user.id && !user.friends.includes(profile_user.id)){ %>
+        <a href="/friend/add/<%= profile_user.id %>"><button>Add Friend</button></a>
+    <% } %>
+
+
+    <% if(user.id == profile_user.id){ %>
+        <a href="/users/sign-out"><button>Sign Out</button></a>
+    <% } %>
+
+    <% if(user.id == profile_user.id){ %>
+
+        <div class="update-profile-container">
+            <h1>Update Profile</h1>
+    
+            <form action="/users/update/<%= profile_user.id %>" enctype="multipart/form-data" method="POST">
+                    <input type="text" name="name" placeholder="Your Name" value="<%= profile_user.name %>" required>
+                    <input type="email" name="email" placeholder="Your Email" value="<%= profile_user.email %>" required>
+                    <input type="file" name="avatar" placeholder="Profile Picture">
+                    <button class="update-btn" type="submit">Update</button>
+            </form>
+
+            
+        </div>
+
+        
+    
+    <% } %>
+</div>
