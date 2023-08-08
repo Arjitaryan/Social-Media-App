@@ -145,7 +145,7 @@
                 <% for(friend of locals.user.friends){ %>
                     <div class="users-list-element">
                         <a href="/friend/remove/<%= friend.id %>"><i class="fa-solid fa-minus"></i></a>
-                        <a href="/users/profile/<%= u.id %>"><img src="<%= friend.avatar %>"></a>
+                        <a href="/users/profile/<%= friend.id %>"><img src="<%= friend.avatar %>"></a>
                         <a class="user-name" href="/users/profile/<%= friend.id %>"><%= friend.name %></a>
                     </div> 
                 <% } %>
